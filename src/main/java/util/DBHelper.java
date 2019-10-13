@@ -1,10 +1,7 @@
 package util;
 
 import model.User;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -12,18 +9,20 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBHelper {
-    private static SessionFactory sessionFactory;
+    private static DBHelper instance;
 
-    public static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
-            sessionFactory = createSessionFactory();
-        }
-
-        return sessionFactory;
+    private DBHelper() {
     }
 
-    @SuppressWarnings("UnusedDeclaration")
-    private static Configuration getMySqlConfiguration() {
+    public static DBHelper getInstance() {
+        if (instance == null) {
+            instance = new DBHelper();
+        }
+
+        return instance;
+    }
+
+    public Configuration getConfiguration() {
         Configuration configuration = new Configuration();
 
         configuration.addAnnotatedClass(User.class);
@@ -35,18 +34,11 @@ public class DBHelper {
         configuration.setProperty("hibernate.connection.password", "1234");
         configuration.setProperty("hibernate.show_sql", "true");
         configuration.setProperty("hibernate.hbm2ddl.auto", "validate");
+
         return configuration;
     }
 
-    private static SessionFactory createSessionFactory() {
-        Configuration configuration = getMySqlConfiguration();
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
-        builder.applySettings(configuration.getProperties());
-        ServiceRegistry serviceRegistry = builder.build();
-        return configuration.buildSessionFactory(serviceRegistry);
-    }
-
-    public static Connection getMysqlConnection() {
+    public Connection getConnection() {
         try {
             DriverManager.registerDriver((Driver) Class.forName("com.mysql.cj.jdbc.Driver").newInstance());
             StringBuilder url = new StringBuilder();

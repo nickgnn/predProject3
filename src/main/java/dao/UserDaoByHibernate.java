@@ -2,17 +2,31 @@ package dao;
 
 import model.User;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import org.hibernate.service.ServiceRegistry;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserDaoByHibernate implements DAO {
+public class UserDaoByHibernate implements UserDao {
     private Session session;
+    private Configuration configuration;
 
-    public UserDaoByHibernate(Session session) {
-        this.session = session;
+    public UserDaoByHibernate(Configuration configuration) {
+        this.configuration = configuration;
+        this.session = createSessionFactory().openSession();
+    }
+
+    private SessionFactory createSessionFactory() {
+        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
+        builder.applySettings(configuration.getProperties());
+        ServiceRegistry serviceRegistry = builder.build();
+
+        return configuration.buildSessionFactory(serviceRegistry);
     }
 
     public void addUser(String name, int age) throws SQLException {

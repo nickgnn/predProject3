@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDaoByJDBC implements DAO {
+public class UserDaoByJDBC implements UserDao {
     private Connection connection;
 
     public UserDaoByJDBC(Connection connection) {
