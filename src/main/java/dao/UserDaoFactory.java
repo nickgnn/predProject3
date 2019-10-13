@@ -24,9 +24,9 @@ public class UserDaoFactory implements AbstractUserDaoFactory {
 
             if (dao.equals("jdbc")) {
                 System.out.println("UserDao IS : jdbc");
+
                 userDao = new UserDaoByJDBC(DBHelper.getInstance().getConnection());
             }
-
         } catch (IOException e) {
             System.err.println("ERROR: Properties file isn't exists!!!");
         }
