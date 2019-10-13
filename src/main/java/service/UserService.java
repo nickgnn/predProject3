@@ -24,6 +24,7 @@ public class UserService implements Service {
         return userService;
     }
 
+    @Override
     public void addUser(String name, int age) throws DBException {
         try {
             factory.getTypeOfConnection().addUser(name, age);
@@ -32,6 +33,7 @@ public class UserService implements Service {
         }
     }
 
+    @Override
     public List<User> getAllUsers() throws DBException {
         try {
             return factory.getTypeOfConnection().getAllUsers();
@@ -40,6 +42,7 @@ public class UserService implements Service {
         }
     }
 
+    @Override
     public User getUserByName(String name) throws DBException {
         try {
             return factory.getTypeOfConnection().getUserByName(name);
@@ -48,6 +51,7 @@ public class UserService implements Service {
         }
     }
 
+    @Override
     public long getUserIdByName(String name) throws DBException {
         try {
             return factory.getTypeOfConnection().getUserIdByName(name);
@@ -56,6 +60,7 @@ public class UserService implements Service {
         }
     }
 
+    @Override
     public void updateUser(User user, String name) throws DBException {
         try {
             factory.getTypeOfConnection().updateUser(user, name);
@@ -64,6 +69,7 @@ public class UserService implements Service {
         }
     }
 
+    @Override
     public void updateUser(User user, int age) throws DBException {
         try {
             factory.getTypeOfConnection().updateUser(user, age);
@@ -72,6 +78,7 @@ public class UserService implements Service {
         }
     }
 
+    @Override
     public void updateUser(User user, Long id) throws DBException {
         try {
             factory.getTypeOfConnection().updateUser(user, id);
@@ -80,6 +87,7 @@ public class UserService implements Service {
         }
     }
 
+    @Override
     public void deleteUserByName(String name) throws DBException {
         try {
             factory.getTypeOfConnection().deleteUserByName(name);
@@ -97,6 +105,7 @@ public class UserService implements Service {
         }
     }
 
+    @Override
     public void createTable() throws DBException {
         try {
             factory.getTypeOfConnection().createTable();
@@ -105,6 +114,7 @@ public class UserService implements Service {
         }
     }
 
+    @Override
     public void cleanUp() throws DBException {
         try {
             factory.getTypeOfConnection().dropTable();

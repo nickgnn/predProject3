@@ -29,6 +29,7 @@ public class UserDaoByHibernate implements UserDao {
         return configuration.buildSessionFactory(serviceRegistry);
     }
 
+    @Override
     public void addUser(String name, int age) throws SQLException {
         User user = getUserByName(name);
 
@@ -42,6 +43,7 @@ public class UserDaoByHibernate implements UserDao {
         }
     }
 
+    @Override
     public List<User> getAllUsers() throws SQLException {
         Transaction transaction = session.beginTransaction();
 
@@ -53,6 +55,7 @@ public class UserDaoByHibernate implements UserDao {
         return users;
     }
 
+    @Override
     public User getUserByName(String name) throws SQLException {
         Transaction transaction =  session.beginTransaction();
 
@@ -72,6 +75,7 @@ public class UserDaoByHibernate implements UserDao {
         return users.get(0);
     }
 
+    @Override
     public long getUserIdByName(String name) throws SQLException {
         long id = 0;
         User user = getUserByName(name);
@@ -85,6 +89,7 @@ public class UserDaoByHibernate implements UserDao {
         return id;
     }
 
+    @Override
     public int updateUser(User user, String name) throws SQLException {
         User userCheck = getUserByName(name);
         int rows = 0;
@@ -109,6 +114,7 @@ public class UserDaoByHibernate implements UserDao {
         return rows;
     }
 
+    @Override
     public int updateUser(User user, int age) throws SQLException {
         Transaction transaction = session.beginTransaction();
 
@@ -125,6 +131,7 @@ public class UserDaoByHibernate implements UserDao {
         return res;
     }
 
+    @Override
     public int updateUser(User user, Long ID) throws SQLException {
         Transaction transaction = session.beginTransaction();
 
@@ -141,6 +148,7 @@ public class UserDaoByHibernate implements UserDao {
         return res;
     }
 
+    @Override
     public void deleteUserByName(String name) throws SQLException {
         Transaction transaction = session.beginTransaction();
 
@@ -154,6 +162,7 @@ public class UserDaoByHibernate implements UserDao {
         session.close();
     }
 
+    @Override
     public void deleteUserById(Long id) throws SQLException {
         Transaction transaction = session.beginTransaction();
 
@@ -167,6 +176,7 @@ public class UserDaoByHibernate implements UserDao {
         session.close();
     }
 
+    @Override
     public void createTable() throws SQLException {
 //        String sql = "CREATE TABLE IF NOT EXISTS `users` (\n" +
 //                     " `id` BIGINT NOT NULL AUTO_INCREMENT,\n" +
@@ -178,6 +188,7 @@ public class UserDaoByHibernate implements UserDao {
 //        preparedStatement.close();
     }
 
+    @Override
     public void dropTable() throws SQLException {
 //        String sql = "DROP TABLE IF EXISTS `users`";
 //        PreparedStatement preparedStatement = connection.prepareStatement(sql);

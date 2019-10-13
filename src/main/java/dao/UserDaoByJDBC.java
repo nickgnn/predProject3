@@ -16,6 +16,7 @@ public class UserDaoByJDBC implements UserDao {
         this.connection = connection;
     }
 
+    @Override
     public void createTable() throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS `users` (\n" +
                      " `id` BIGINT NOT NULL AUTO_INCREMENT,\n" +
@@ -27,6 +28,7 @@ public class UserDaoByJDBC implements UserDao {
         preparedStatement.close();
     }
 
+    @Override
     public void dropTable() throws SQLException {
         String sql = "DROP TABLE IF EXISTS `users`";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -34,6 +36,7 @@ public class UserDaoByJDBC implements UserDao {
         preparedStatement.close();
     }
 
+    @Override
     public List<User> getAllUsers() throws SQLException {
         String sql = "SELECT * FROM `users`";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -54,6 +57,7 @@ public class UserDaoByJDBC implements UserDao {
         return list;
     }
 
+    @Override
     public void addUser(String name, int age) throws SQLException {
         User user = getUserByName(name);
 
@@ -71,6 +75,7 @@ public class UserDaoByJDBC implements UserDao {
         }
     }
 
+    @Override
     public User getUserByName(String name) throws SQLException {
         String sql = "SELECT * FROM `users` WHERE (`name` = ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -94,6 +99,7 @@ public class UserDaoByJDBC implements UserDao {
         return user;
     }
 
+    @Override
     public int updateUser(User user, String name) throws SQLException {
         User userCheck = getUserByName(name);
         int rows = 0;
@@ -115,6 +121,7 @@ public class UserDaoByJDBC implements UserDao {
         return rows;
     }
 
+    @Override
     public int updateUser(User user, int age) throws SQLException {
         String sql = "UPDATE `users` SET `age` = ? WHERE (`id` = ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -128,6 +135,7 @@ public class UserDaoByJDBC implements UserDao {
         return rows;
     }
 
+    @Override
     public int updateUser(User user, Long ID) throws SQLException {
         String sql = "UPDATE `users` SET `id` = ? WHERE (`id` = ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -141,6 +149,7 @@ public class UserDaoByJDBC implements UserDao {
         return rows;
     }
 
+    @Override
     public long getUserIdByName(String name) throws SQLException {
         long id = 0;
         User user = getUserByName(name);
@@ -154,6 +163,7 @@ public class UserDaoByJDBC implements UserDao {
         return id;
     }
 
+    @Override
     public void deleteUserByName(String name) throws SQLException {
         String sql = "DELETE FROM `users` WHERE (`name` = ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -163,6 +173,7 @@ public class UserDaoByJDBC implements UserDao {
         preparedStatement.close();
     }
 
+    @Override
     public void deleteUserById(Long id) throws SQLException {
         String sql = "DELETE FROM `users` WHERE (`id` = ?)";
 
